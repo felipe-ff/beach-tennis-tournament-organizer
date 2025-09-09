@@ -1,0 +1,197 @@
+.player-setup {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.player-setup h1 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+}
+
+.setup-section {
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.setup-section h2 {
+  color: #34495e;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.player-count-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.count-button {
+  padding: 12px 20px;
+  border: 2px solid #3498db;
+  background: white;
+  color: #3498db;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.count-button:hover {
+  background: #3498db;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.count-button.selected {
+  background: #3498db;
+  color: white;
+  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+}
+
+.info-text {
+  color: #7f8c8d;
+  font-style: italic;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.player-input-section {
+  margin-bottom: 20px;
+}
+
+.quick-add {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.quick-add input {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #bdc3c7;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.quick-add input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.quick-add button {
+  padding: 12px 20px;
+  background: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 1rem;
+}
+
+.quick-add button:hover:not(:disabled) {
+  background: #219a52;
+}
+
+.quick-add button:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+}
+
+.players-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.player-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.player-number {
+  font-weight: bold;
+  color: #3498db;
+  min-width: 30px;
+}
+
+.player-name-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #bdc3c7;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.player-name-input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.create-tournament-section {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 2px solid #ecf0f1;
+}
+
+.create-tournament-button {
+  padding: 15px 40px;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+.create-tournament-button:hover:not(:disabled) {
+  background: #c0392b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(231, 76, 60, 0.4);
+}
+
+.create-tournament-button:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .player-setup {
+    padding: 15px;
+  }
+  
+  .player-setup h1 {
+    font-size: 2rem;
+  }
+  
+  .players-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .player-count-buttons {
+    justify-content: center;
+  }
+  
+  .quick-add {
+    flex-direction: column;
+  }
+}
