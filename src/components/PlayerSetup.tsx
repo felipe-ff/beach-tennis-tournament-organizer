@@ -2,19 +2,23 @@ import React, { useState } from 'react';
 import { getAvailablePlayerCounts } from '../data/tournamentData';
 import './PlayerSetup.css';
 
-const PlayerSetup = ({ onTournamentCreate }) => {
+interface PlayerSetupProps {
+  onTournamentCreate: (playerCount: number, players: string[]) => void;
+}
+
+const PlayerSetup: React.FC<PlayerSetupProps> = ({ onTournamentCreate }) => {
   const [playerCount, setPlayerCount] = useState('12');
   const [players, setPlayers] = useState(new Array(12).fill('').map((_, index) => `Jogador ${index + 1}`));
   const [currentPlayerName, setCurrentPlayerName] = useState('');
 
   const availableCounts = getAvailablePlayerCounts();
 
-  const handlePlayerCountChange = (count) => {
+  const handlePlayerCountChange = (count: string) => {
     setPlayerCount(count);
     setPlayers(new Array(parseInt(count)).fill('').map((_, index) => `Jogador ${index + 1}`));
   };
 
-  const handlePlayerNameChange = (index, name) => {
+  const handlePlayerNameChange = (index: number, name: string) => {
     const newPlayers = [...players];
     newPlayers[index] = name || `Jogador ${index + 1}`;
     setPlayers(newPlayers);

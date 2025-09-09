@@ -1,7 +1,9 @@
+import { Game, PlayerStats } from '../types/tournament';
+
 // Utility functions for tournament management
 
 // Shuffle array using Fisher-Yates algorithm
-export const shuffleArray = (array) => {
+export const shuffleArray = <T>(array: T[]): T[] => {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -11,9 +13,9 @@ export const shuffleArray = (array) => {
 };
 
 // Assign players to numbers randomly
-export const assignPlayersToNumbers = (players) => {
+export const assignPlayersToNumbers = (players: string[]): Record<number, string> => {
   const shuffledPlayers = shuffleArray(players);
-  const assignment = {};
+  const assignment: Record<number, string> = {};
   
   shuffledPlayers.forEach((player, index) => {
     assignment[index + 1] = player;
@@ -23,25 +25,25 @@ export const assignPlayersToNumbers = (players) => {
 };
 
 // Get player name by number
-export const getPlayerNameByNumber = (playerNumber, playerAssignment) => {
+export const getPlayerNameByNumber = (playerNumber: number, playerAssignment: Record<number, string>): string => {
   return playerAssignment[playerNumber] || `Jogador ${playerNumber}`;
 };
 
 // Create initial tournament state
-export const createTournamentState = (tournamentStructure, playerAssignment) => {
-  const games = [];
+export const createTournamentState = (tournamentStructure: any, playerAssignment: Record<number, string>): Game[] => {
+  const games: Game[] = [];
   let gameId = 1;
-  
-  tournamentStructure.rounds.forEach((round, roundIndex) => {
-    round.forEach(gameTemplate => {
+
+  tournamentStructure.rounds.forEach((round: any, roundIndex: number) => {
+    round.forEach((gameTemplate: any) => {
       games.push({
         id: gameId++,
         round: roundIndex + 1,
-        team1: gameTemplate.team1.map(num => ({
+        team1: gameTemplate.team1.map((num: number) => ({
           number: num,
           name: getPlayerNameByNumber(num, playerAssignment)
         })),
-        team2: gameTemplate.team2.map(num => ({
+        team2: gameTemplate.team2.map((num: number) => ({
           number: num,
           name: getPlayerNameByNumber(num, playerAssignment)
         })),
@@ -58,8 +60,8 @@ export const createTournamentState = (tournamentStructure, playerAssignment) => 
 };
 
 // Calculate player statistics
-export const calculatePlayerStats = (games, playerAssignment) => {
-  const stats = {};
+export const calculatePlayerStats = (games: Game[], playerAssignment: Record<number, string>): Record<number, PlayerStats> => {
+  const stats: Record<number, PlayerStats> = {};
   
   // Initialize stats for all players
   Object.keys(playerAssignment).forEach(number => {
@@ -78,15 +80,15 @@ export const calculatePlayerStats = (games, playerAssignment) => {
   });
   
   // Calculate stats from completed games
-  games.forEach(game => {
+  games.forEach((game: Game) => {
     if (game.completed) {
-      const team1Players = game.team1.map(p => p.number);
-      const team2Players = game.team2.map(p => p.number);
+      const team1Players = game.team1.map((p: { number: number; name: string }) => p.number);
+      const team2Players = game.team2.map((p: { number: number; name: string }) => p.number);
       const team1Score = game.score.team1;
       const team2Score = game.score.team2;
       
       // Update stats for team1 players
-      team1Players.forEach(playerNumber => {
+      team1Players.forEach((playerNumber: number) => {
         const playerStats = stats[playerNumber];
         playerStats.gamesPlayed++;
         playerStats.pointsScored += team1Score;
@@ -102,7 +104,7 @@ export const calculatePlayerStats = (games, playerAssignment) => {
       });
       
       // Update stats for team2 players
-      team2Players.forEach(playerNumber => {
+      team2Players.forEach((playerNumber: number) => {
         const playerStats = stats[playerNumber];
         playerStats.gamesPlayed++;
         playerStats.pointsScored += team2Score;
@@ -120,7 +122,7 @@ export const calculatePlayerStats = (games, playerAssignment) => {
   });
   
   // Calculate derived stats
-  Object.values(stats).forEach(playerStats => {
+  Object.values(stats).forEach((playerStats: PlayerStats) => {
     playerStats.pointsDifference = playerStats.pointsScored - playerStats.pointsAgainst;
     playerStats.winPercentage = playerStats.gamesPlayed > 0 
       ? Math.round((playerStats.gamesWon / playerStats.gamesPlayed) * 100)
@@ -131,10 +133,10 @@ export const calculatePlayerStats = (games, playerAssignment) => {
 };
 
 // Get games by round
-export const getGamesByRound = (games) => {
-  const gamesByRound = {};
+export const getGamesByRound = (games: Game[]): Record<number, Game[]> => {
+  const gamesByRound: Record<number, Game[]> = {};
   
-  games.forEach(game => {
+  games.forEach((game: Game) => {
     if (!gamesByRound[game.round]) {
       gamesByRound[game.round] = [];
     }
@@ -145,8 +147,8 @@ export const getGamesByRound = (games) => {
 };
 
 // Update game score
-export const updateGameScore = (games, gameId, newScore) => {
-  return games.map(game => {
+export const updateGameScore = (games: Game[], gameId: number, newScore: { team1: number; team2: number }): Game[] => {
+  return games.map((game: Game) => {
     if (game.id === gameId) {
       return {
         ...game,

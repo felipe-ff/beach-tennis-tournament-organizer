@@ -1,7 +1,9 @@
+import { TournamentStructure } from '../types/tournament';
+
 // Fixed tournament structures for each number of players
 // Each person plays exactly 4 games and never plays with the same partner twice
 
-export const tournamentStructures = {
+export const tournamentStructures: Record<number, TournamentStructure> = {
   12: {
     rounds: [
       // Rodada 1
@@ -185,11 +187,11 @@ export const tournamentStructures = {
 };
 
 // Get available player counts
-export const getAvailablePlayerCounts = () => {
+export const getAvailablePlayerCounts = (): number[] => {
   return Object.keys(tournamentStructures).map(Number).sort((a, b) => a - b);
 };
 
 // Get tournament structure for a specific number of players
-export const getTournamentStructure = (playerCount) => {
+export const getTournamentStructure = (playerCount: number): TournamentStructure | null => {
   return tournamentStructures[playerCount] || null;
 };

@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import { getGamesByRound } from '../utils/tournamentUtils';
 import GameModal from './GameModal';
+import { Game } from '../types/tournament';
 import './GamesList.css';
 
-const GamesList = ({ games, onScoreUpdate }) => {
-  const [selectedGame, setSelectedGame] = useState(null);
+interface GamesListProps {
+  games: Game[];
+  onScoreUpdate: (gameId: number, score: { team1: number; team2: number }) => void;
+}
+
+const GamesList: React.FC<GamesListProps> = ({ games, onScoreUpdate }) => {
+  const [selectedGame, setSelectedGame] = useState<Game | null>(null);
   const [selectedRound, setSelectedRound] = useState(1);
   
-  const gamesByRound = getGamesByRound(games);
+  const gamesByRound: Record<number, Game[]> = getGamesByRound(games);
   const rounds = Object.keys(gamesByRound).map(Number).sort();
 
-  const handleGameClick = (game) => {
+  const handleGameClick = (game: Game) => {
     setSelectedGame(game);
   };
 
@@ -18,23 +24,23 @@ const GamesList = ({ games, onScoreUpdate }) => {
     setSelectedGame(null);
   };
 
-  const handleScoreSubmit = (gameId, score) => {
+  const handleScoreSubmit = (gameId: number, score: { team1: number; team2: number }) => {
     onScoreUpdate(gameId, score);
     setSelectedGame(null);
   };
 
-  const getGameStatusClass = (game) => {
+  const getGameStatusClass = (game: Game) => {
     if (game.completed) {
       return 'game-completed';
     }
     return 'game-pending';
   };
 
-  const formatTeam = (team) => {
+  const formatTeam = (team: { number: number; name: string }[]) => {
     return team.map(player => player.name).join(' + ');
   };
 
-  const getGameScore = (game) => {
+  const getGameScore = (game: Game) => {
     if (game.completed) {
       return `${game.score.team1} - ${game.score.team2}`;
     }

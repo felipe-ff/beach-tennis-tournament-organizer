@@ -14,14 +14,15 @@ import {
   saveToLocalStorage,
   loadFromLocalStorage
 } from './services/tournamentService';
+import { TournamentData } from './types/tournament';
 import './App.css';
 
 function App() {
   const [currentView, setCurrentView] = useState('setup');
-  const [tournamentData, setTournamentData] = useState(null);
+  const [tournamentData, setTournamentData] = useState<TournamentData | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [currentTournamentId, setCurrentTournamentIdState] = useState(null);
+  const [currentTournamentId, setCurrentTournamentIdState] = useState<string | null>(null);
 
   // Load tournament on app start
   useEffect(() => {
@@ -97,7 +98,7 @@ function App() {
     }
   }, [tournamentData, currentTournamentId, loading]);
 
-  const handleTournamentCreate = async (playerCount, players) => {
+  const handleTournamentCreate = async (playerCount: number, players: string[]) => {
     try {
       setSaving(true);
       
@@ -144,11 +145,15 @@ function App() {
     }
   };
 
-  const handleScoreUpdate = (gameId, newScore) => {
-    setTournamentData(prev => ({
-      ...prev,
-      games: updateGameScore(prev.games, gameId, newScore)
-    }));
+  const handleScoreUpdate = (gameId: number, newScore: { team1: number; team2: number }) => {
+    setTournamentData(prev => {
+      if (!prev) return null;
+      return {
+        ...prev,
+        games: updateGameScore(prev.games, gameId, newScore),
+        updatedAt: new Date()
+      };
+    });
   };
 
   const handleResetTournament = () => {
@@ -158,7 +163,7 @@ function App() {
     localStorage.removeItem('currentTournamentId');
     
     // Clear URL parameter
-    const url = new URL(window.location);
+    const url = new URL(window.location.href);
     url.searchParams.delete('tournament');
     window.history.replaceState({}, '', url);
   };
@@ -183,7 +188,7 @@ function App() {
             className={currentView === 'stats' ? 'active' : ''}
             onClick={() => setCurrentView('stats')}
           >
-            Estatísticas
+            Classificados
           </button>
           <button
             className="reset-button"

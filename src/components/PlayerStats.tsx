@@ -1,19 +1,31 @@
 import React, { useState } from 'react';
 import { calculatePlayerStats } from '../utils/tournamentUtils';
+import { Game, PlayerStats as PlayerStatsType } from '../types/tournament';
 import './PlayerStats.css';
 
-const PlayerStats = ({ games, playerAssignment }) => {
-  const [sortBy, setSortBy] = useState('pointsScored');
-  const [sortOrder, setSortOrder] = useState('desc');
+interface PlayerStatsProps {
+  games: Game[];
+  playerAssignment: Record<number, string>;
+}
+
+const PlayerStats: React.FC<PlayerStatsProps> = ({ games, playerAssignment }) => {
+  const [sortBy, setSortBy] = useState<keyof PlayerStatsType>('pointsScored');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
   
   const stats = calculatePlayerStats(games, playerAssignment);
-  const playersStats = Object.values(stats);
+  const playersStats: PlayerStatsType[] = Object.values(stats);
 
-  const sortedStats = [...playersStats].sort((a, b) => {
+  // Primeiro ordena por pontos (decrescente) para pegar os 8 melhores
+  const topPlayers = [...playersStats]
+    .sort((a, b) => b.pointsScored - a.pointsScored)
+    .slice(0, 8);
+
+  // Depois ordena pelos critérios selecionados pelo usuário
+  const sortedStats = [...topPlayers].sort((a: PlayerStatsType, b: PlayerStatsType) => {
     let aValue = a[sortBy];
     let bValue = b[sortBy];
     
-    if (typeof aValue === 'string') {
+    if (typeof aValue === 'string' && typeof bValue === 'string') {
       aValue = aValue.toLowerCase();
       bValue = bValue.toLowerCase();
     }
@@ -25,7 +37,7 @@ const PlayerStats = ({ games, playerAssignment }) => {
     }
   });
 
-  const handleSort = (field) => {
+  const handleSort = (field: keyof PlayerStatsType) => {
     if (sortBy === field) {
       setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
     } else {
@@ -34,12 +46,12 @@ const PlayerStats = ({ games, playerAssignment }) => {
     }
   };
 
-  const getSortIcon = (field) => {
+  const getSortIcon = (field: keyof PlayerStatsType) => {
     if (sortBy !== field) return '↕️';
     return sortOrder === 'asc' ? '↑' : '↓';
   };
 
-  const getPositionClass = (index) => {
+  const getPositionClass = (index: number) => {
     if (index === 0) return 'position-gold';
     if (index === 1) return 'position-silver';
     if (index === 2) return 'position-bronze';
@@ -49,19 +61,19 @@ const PlayerStats = ({ games, playerAssignment }) => {
   return (
     <div className="player-stats">
       <div className="stats-header">
-        <h2>Estatísticas dos Jogadores</h2>
+        <h2>Classificados - Top 8</h2>
         <div className="stats-summary">
           <div className="summary-card">
-            <strong>{playersStats.length}</strong>
-            <span>Jogadores</span>
+            <strong>{sortedStats.length}</strong>
+            <span>Classificados</span>
           </div>
           <div className="summary-card">
             <strong>{games.filter(g => g.completed).length}</strong>
             <span>Jogos Finalizados</span>
           </div>
           <div className="summary-card">
-            <strong>{Math.round(playersStats.reduce((sum, p) => sum + p.pointsScored, 0) / playersStats.length)}</strong>
-            <span>Média de Pontos</span>
+            <strong>{Math.round(topPlayers.reduce((sum: number, p: PlayerStatsType) => sum + p.pointsScored, 0) / topPlayers.length)}</strong>
+            <span>Média de Pontos (Top 8)</span>
           </div>
         </div>
       </div>
@@ -116,7 +128,7 @@ const PlayerStats = ({ games, playerAssignment }) => {
             </tr>
           </thead>
           <tbody>
-            {sortedStats.map((player, index) => (
+            {sortedStats.map((player: PlayerStatsType, index: number) => (
               <tr key={player.name} className={getPositionClass(index)}>
                 <td className="position-column">
                   <span className="position-number">{index + 1}</span>

@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import { Game } from '../types/tournament';
 import './GameModal.css';
 
-const GameModal = ({ game, onClose, onScoreSubmit }) => {
-  const [team1Score, setTeam1Score] = useState(game.score.team1);
-  const [team2Score, setTeam2Score] = useState(game.score.team2);
+interface GameModalProps {
+  game: Game;
+  onClose: () => void;
+  onScoreSubmit: (gameId: number, score: { team1: number; team2: number }) => void;
+}
+
+const GameModal: React.FC<GameModalProps> = ({ game, onClose, onScoreSubmit }) => {
+  const [team1Score, setTeam1Score] = useState<string>(game.score.team1.toString());
+  const [team2Score, setTeam2Score] = useState<string>(game.score.team2.toString());
 
   useEffect(() => {
-    setTeam1Score(game.score.team1);
-    setTeam2Score(game.score.team2);
+    setTeam1Score(game.score.team1.toString());
+    setTeam2Score(game.score.team2.toString());
   }, [game]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const score = {
       team1: parseInt(team1Score) || 0,
@@ -19,29 +26,29 @@ const GameModal = ({ game, onClose, onScoreSubmit }) => {
     onScoreSubmit(game.id, score);
   };
 
-  const handleOverlayClick = (e) => {
+  const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       onClose();
     }
   };
 
-  const formatTeam = (team) => {
+  const formatTeam = (team: { number: number; name: string }[]) => {
     return team.map(player => player.name).join(' + ');
   };
 
-  const increaseScore = (team, currentScore) => {
+  const increaseScore = (team: 'team1' | 'team2', currentScore: number) => {
     if (team === 'team1') {
-      setTeam1Score(Math.max(0, currentScore + 1));
+      setTeam1Score((Math.max(0, currentScore + 1)).toString());
     } else {
-      setTeam2Score(Math.max(0, currentScore + 1));
+      setTeam2Score((Math.max(0, currentScore + 1)).toString());
     }
   };
 
-  const decreaseScore = (team, currentScore) => {
+  const decreaseScore = (team: 'team1' | 'team2', currentScore: number) => {
     if (team === 'team1') {
-      setTeam1Score(Math.max(0, currentScore - 1));
+      setTeam1Score((Math.max(0, currentScore - 1)).toString());
     } else {
-      setTeam2Score(Math.max(0, currentScore - 1));
+      setTeam2Score((Math.max(0, currentScore - 1)).toString());
     }
   };
 
@@ -65,21 +72,21 @@ const GameModal = ({ game, onClose, onScoreSubmit }) => {
                   <button
                     type="button"
                     className="score-button decrease"
-                    onClick={() => decreaseScore('team1', team1Score)}
+                    onClick={() => decreaseScore('team1', parseInt(team1Score) || 0)}
                   >
                     -
                   </button>
                   <input
                     type="number"
                     value={team1Score}
-                    onChange={(e) => setTeam1Score(parseInt(e.target.value) || 0)}
+                    onChange={(e) => setTeam1Score(e.target.value)}
                     min="0"
                     className="score-input"
                   />
                   <button
                     type="button"
                     className="score-button increase"
-                    onClick={() => increaseScore('team1', team1Score)}
+                    onClick={() => increaseScore('team1', parseInt(team1Score) || 0)}
                   >
                     +
                   </button>
@@ -99,21 +106,21 @@ const GameModal = ({ game, onClose, onScoreSubmit }) => {
                   <button
                     type="button"
                     className="score-button decrease"
-                    onClick={() => decreaseScore('team2', team2Score)}
+                    onClick={() => decreaseScore('team2', parseInt(team2Score) || 0)}
                   >
                     -
                   </button>
                   <input
                     type="number"
                     value={team2Score}
-                    onChange={(e) => setTeam2Score(parseInt(e.target.value) || 0)}
+                    onChange={(e) => setTeam2Score(e.target.value)}
                     min="0"
                     className="score-input"
                   />
                   <button
                     type="button"
                     className="score-button increase"
-                    onClick={() => increaseScore('team2', team2Score)}
+                    onClick={() => increaseScore('team2', parseInt(team2Score) || 0)}
                   >
                     +
                   </button>
