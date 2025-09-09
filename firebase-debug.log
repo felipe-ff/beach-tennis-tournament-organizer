@@ -1,0 +1,117 @@
+[debug] [2025-09-09T16:09:32.442Z] ----------------------------------------------------------------------
+[debug] [2025-09-09T16:09:32.443Z] Command:       C:\nvm4w\nodejs\node.exe C:\nvm4w\nodejs\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2025-09-09T16:09:32.444Z] CLI Version:   13.35.1
+[debug] [2025-09-09T16:09:32.444Z] Platform:      win32
+[debug] [2025-09-09T16:09:32.444Z] Node Version:  v18.18.2
+[debug] [2025-09-09T16:09:32.446Z] Time:          Tue Sep 09 2025 13:09:32 GMT-0300 (Horário Padrão de Brasília)
+[debug] [2025-09-09T16:09:32.446Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-09-09T16:09:32.453Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-09-09T16:09:32.453Z] > authorizing via signed-in user (felipe.ferraz18@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Projetos\organizador-torneio-beach-tennis
+
+Before we get started, keep in mind:
+
+  * You are currently outside your home directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2025-09-09T16:09:43.794Z] Checked if tokens are valid: true, expires at: 1757436952534
+[debug] [2025-09-09T16:09:43.794Z] Checked if tokens are valid: true, expires at: 1757436952534
+[debug] [2025-09-09T16:09:43.796Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2025-09-09T16:09:45.195Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2025-09-09T16:09:45.195Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  Using project organizador-torneio-b-tennis (organizador-torneio-b-tennis) 
+[info] 
+=== Apphosting Setup
+[debug] [2025-09-09T16:09:48.591Z] Checked if tokens are valid: true, expires at: 1757436952534
+[debug] [2025-09-09T16:09:48.592Z] Checked if tokens are valid: true, expires at: 1757436952534
+[debug] [2025-09-09T16:09:48.592Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/organizador-torneio-b-tennis/billingInfo [none]
+[debug] [2025-09-09T16:09:49.655Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/organizador-torneio-b-tennis/billingInfo 200
+[debug] [2025-09-09T16:09:49.655Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/organizador-torneio-b-tennis/billingInfo {"name":"projects/organizador-torneio-b-tennis/billingInfo","projectId":"organizador-torneio-b-tennis","billingAccountName":"","billingEnabled":false}
+[info] i  Writing default settings to apphosting.yaml... 
+[info] i  apphosting.yaml is unchanged 
+[info] +  Create a new App Hosting backend with `firebase apphosting:backends:create` 
+[info] 
+=== Hosting Setup
+[debug] [2025-09-09T16:09:49.657Z] Checked if tokens are valid: true, expires at: 1757436952534
+[debug] [2025-09-09T16:09:49.657Z] Checked if tokens are valid: true, expires at: 1757436952534
+[debug] [2025-09-09T16:09:49.657Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/organizador-torneio-b-tennis [none]
+[debug] [2025-09-09T16:09:50.047Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/organizador-torneio-b-tennis 200
+[debug] [2025-09-09T16:09:50.047Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/organizador-torneio-b-tennis {"projectId":"organizador-torneio-b-tennis","projectNumber":"729351809777","displayName":"organizador-torneio-b-tennis","name":"projects/organizador-torneio-b-tennis","resources":{"hostingSite":"organizador-torneio-b-tennis"},"state":"ACTIVE","etag":"1_23551421-8838-4a1a-9315-2af7900d45f4"}
+[debug] [2025-09-09T16:10:34.796Z] Error: Command failed: npx --yes -p @angular/cli@"16 - 19" ng new organizador-torneio-b-tennis --directory hosting --skip-git
+    at checkExecSyncError (node:child_process:890:11)
+    at execSync (node:child_process:962:15)
+    at Object.init (C:\Users\Felipe\AppData\Local\nvm\v18.18.2\node_modules\firebase-tools\lib\frameworks\angular\index.js:29:34)
+    at doSetup (C:\Users\Felipe\AppData\Local\nvm\v18.18.2\node_modules\firebase-tools\lib\init\features\hosting\index.js:120:76)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async init (C:\Users\Felipe\AppData\Local\nvm\v18.18.2\node_modules\firebase-tools\lib\init\index.js:41:9)
+[debug] [2025-09-09T16:10:39.661Z] ----------------------------------------------------------------------
+[debug] [2025-09-09T16:10:39.663Z] Command:       C:\nvm4w\nodejs\node.exe C:\nvm4w\nodejs\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2025-09-09T16:10:39.663Z] CLI Version:   13.35.1
+[debug] [2025-09-09T16:10:39.664Z] Platform:      win32
+[debug] [2025-09-09T16:10:39.664Z] Node Version:  v18.18.2
+[debug] [2025-09-09T16:10:39.665Z] Time:          Tue Sep 09 2025 13:10:39 GMT-0300 (Horário Padrão de Brasília)
+[debug] [2025-09-09T16:10:39.665Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-09-09T16:10:39.672Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-09-09T16:10:39.673Z] > authorizing via signed-in user (felipe.ferraz18@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Projetos\organizador-torneio-beach-tennis
+
+Before we get started, keep in mind:
+
+  * You are currently outside your home directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2025-09-09T16:10:48.002Z] Checked if tokens are valid: true, expires at: 1757436952534
+[debug] [2025-09-09T16:10:48.002Z] Checked if tokens are valid: true, expires at: 1757436952534
+[debug] [2025-09-09T16:10:48.003Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2025-09-09T16:10:49.425Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2025-09-09T16:10:49.425Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  Using project organizador-torneio-b-tennis (organizador-torneio-b-tennis) 
+[info] 
+=== Apphosting Setup
+[debug] [2025-09-09T16:10:53.055Z] Checked if tokens are valid: true, expires at: 1757436952534
+[debug] [2025-09-09T16:10:53.055Z] Checked if tokens are valid: true, expires at: 1757436952534
+[debug] [2025-09-09T16:10:53.055Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/organizador-torneio-b-tennis/billingInfo [none]
+[debug] [2025-09-09T16:10:54.184Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/organizador-torneio-b-tennis/billingInfo 200
+[debug] [2025-09-09T16:10:54.184Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/organizador-torneio-b-tennis/billingInfo {"name":"projects/organizador-torneio-b-tennis/billingInfo","projectId":"organizador-torneio-b-tennis","billingAccountName":"","billingEnabled":false}
+[info] i  Writing default settings to apphosting.yaml... 
+[info] i  apphosting.yaml is unchanged 
+[info] +  Create a new App Hosting backend with `firebase apphosting:backends:create` 
+[info] 
+=== Hosting Setup
+[debug] [2025-09-09T16:10:54.186Z] Checked if tokens are valid: true, expires at: 1757436952534
+[debug] [2025-09-09T16:10:54.186Z] Checked if tokens are valid: true, expires at: 1757436952534
+[debug] [2025-09-09T16:10:54.186Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/organizador-torneio-b-tennis [none]
+[debug] [2025-09-09T16:10:54.574Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/organizador-torneio-b-tennis 200
+[debug] [2025-09-09T16:10:54.574Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/organizador-torneio-b-tennis {"projectId":"organizador-torneio-b-tennis","projectNumber":"729351809777","displayName":"organizador-torneio-b-tennis","name":"projects/organizador-torneio-b-tennis","resources":{"hostingSite":"organizador-torneio-b-tennis"},"state":"ACTIVE","etag":"1_23551421-8838-4a1a-9315-2af7900d45f4"}

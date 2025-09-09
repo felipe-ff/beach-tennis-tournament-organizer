@@ -1,0 +1,341 @@
+.player-stats {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.stats-header {
+  margin-bottom: 40px;
+}
+
+.stats-header h2 {
+  background: linear-gradient(45deg, #4a5568, #2d3748);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+.stats-summary {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.summary-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  min-width: 140px;
+  transition: transform 0.3s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-3px);
+}
+
+.summary-card strong {
+  font-size: 2.2rem;
+  background: linear-gradient(45deg, #4a5568, #2d3748);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.summary-card span {
+  color: #4a5568;
+  font-size: 0.95rem;
+  text-align: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stats-table-container {
+  overflow-x: auto;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.stats-table th {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 18px 15px;
+  text-align: left;
+  font-weight: 700;
+  border-bottom: 3px solid rgba(102, 126, 234, 0.8);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stats-table th.numeric {
+  text-align: center;
+}
+
+.stats-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.stats-table th.sortable::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.stats-table th.sortable:hover::after {
+  opacity: 1;
+}
+
+.position-column {
+  width: 90px;
+  text-align: center !important;
+}
+
+.stats-table td {
+  padding: 15px 12px;
+  border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+  vertical-align: middle;
+  font-size: 0.95rem;
+}
+
+.stats-table td.numeric {
+  text-align: center;
+  font-weight: 600;
+}
+
+.stats-table tbody tr {
+  transition: all 0.3s ease;
+}
+
+.stats-table tbody tr:hover {
+  background: linear-gradient(135deg, #f8f9ff 0%, #e6f3ff 100%);
+  transform: scale(1.01);
+}
+
+.position-number {
+  font-weight: 700;
+  color: #2d3748;
+  font-size: 1.2rem;
+}
+
+.medal {
+  margin-left: 8px;
+  font-size: 1.3rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.position-gold {
+  background: linear-gradient(135deg, #fff9e6, #fef5e7);
+  border-left: 5px solid #f6ad55;
+  box-shadow: 0 4px 15px rgba(246, 173, 85, 0.2);
+}
+
+.position-silver {
+  background: linear-gradient(135deg, #f7fafc, #edf2f7);
+  border-left: 5px solid #a0aec0;
+  box-shadow: 0 4px 15px rgba(160, 174, 192, 0.2);
+}
+
+.position-bronze {
+  background: linear-gradient(135deg, #fdf2e9, #fed7aa);
+  border-left: 5px solid #ed8936;
+  box-shadow: 0 4px 15px rgba(237, 137, 54, 0.2);
+}
+
+.player-name {
+  font-weight: 700;
+  color: #2d3748;
+  min-width: 160px;
+  font-size: 1.05rem;
+}
+
+.wins {
+  color: #48bb78;
+  font-weight: 700;
+  background: rgba(72, 187, 120, 0.1);
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.draws {
+  color: #ed8936;
+  font-weight: 700;
+  background: rgba(237, 137, 54, 0.1);
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.losses {
+  color: #f56565;
+  font-weight: 700;
+  background: rgba(245, 101, 101, 0.1);
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.win-percentage {
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(74, 85, 104, 0.25);
+}
+
+.points-scored {
+  color: #48bb78;
+  font-weight: 700;
+}
+
+.points-against {
+  color: #f56565;
+  font-weight: 700;
+}
+
+.positive {
+  color: #48bb78;
+  font-weight: 700;
+  background: rgba(72, 187, 120, 0.1);
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.negative {
+  color: #f56565;
+  font-weight: 700;
+  background: rgba(245, 101, 101, 0.1);
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.no-stats {
+  text-align: center;
+  padding: 80px 30px;
+  color: #4a5568;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.no-stats p {
+  font-size: 1.2rem;
+  margin: 15px 0;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .player-stats {
+    padding: 20px 15px;
+  }
+  
+  .stats-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .stats-summary {
+    gap: 20px;
+  }
+  
+  .summary-card {
+    padding: 20px;
+    min-width: 120px;
+  }
+  
+  .summary-card strong {
+    font-size: 1.8rem;
+  }
+  
+  .stats-table th,
+  .stats-table td {
+    padding: 10px 8px;
+    font-size: 0.9rem;
+  }
+  
+  .position-column {
+    width: 70px;
+  }
+  
+  .player-name {
+    min-width: 130px;
+    font-size: 1rem;
+  }
+  
+  .stats-table-container {
+    border-radius: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-summary {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .summary-card {
+    width: 100%;
+    max-width: 220px;
+    padding: 18px;
+  }
+  
+  .stats-table th,
+  .stats-table td {
+    padding: 8px 6px;
+    font-size: 0.85rem;
+  }
+  
+  .player-name {
+    min-width: 110px;
+    font-size: 0.9rem;
+  }
+  
+  .stats-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .no-stats {
+    padding: 60px 20px;
+  }
+  
+  .no-stats p {
+    font-size: 1.1rem;
+  }
+}
