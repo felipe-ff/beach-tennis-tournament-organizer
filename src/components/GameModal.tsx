@@ -33,7 +33,14 @@ const GameModal: React.FC<GameModalProps> = ({ game, onClose, onScoreSubmit }) =
   };
 
   const formatTeam = (team: { number: number; name: string }[]) => {
-    return team.map(player => player.name).join(' + ');
+    return team.map(player => {
+      // Check if it's a default name (Jogador X, Homem X, Mulher X)
+      const defaultNames = [`Jogador ${player.number}`, `Homem ${player.number}`, `Mulher ${player.number}`];
+      const isDefaultName = defaultNames.includes(player.name);
+      
+      // Only show number if it's NOT a default name
+      return isDefaultName ? player.name : `${player.name} (${player.number})`;
+    }).join(' + ');
   };
 
   const increaseScore = (team: 'team1' | 'team2', currentScore: number) => {

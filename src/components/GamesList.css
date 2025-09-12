@@ -147,24 +147,65 @@
 .game-matchup {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 15px;
   position: relative;
   z-index: 1;
+}
+
+.teams-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .team {
   display: flex;
   align-items: center;
   padding: 15px 20px;
-  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
   border-radius: 15px;
-  border: 1px solid rgba(74, 85, 104, 0.1);
   transition: all 0.2s ease;
+  flex: 1;
+  min-height: 50px;
+}
+
+.team.team1 {
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+  border: 1px solid rgba(74, 85, 104, 0.1);
+}
+
+.team.team2 {
+  background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);
+  border: 1px solid rgba(56, 178, 172, 0.2);
 }
 
 .team:hover {
+  transform: translateY(-2px);
+}
+
+.team.team1:hover {
   background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%);
-  transform: translateX(2px);
+}
+
+.team.team2:hover {
+  background: linear-gradient(135deg, #b2f5ea 0%, #81e6d9 100%);
+}
+
+.vs-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  font-weight: 700;
+  color: #4a5568;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.score-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
 }
 
 .team-name {
@@ -197,7 +238,7 @@
   padding: 8px 20px;
   background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%);
   border-radius: 25px;
-  min-width: 90px;
+  min-width: 120px;
   text-align: center;
   border: 1px solid rgba(74, 85, 104, 0.1);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -271,6 +312,31 @@
   .games-list {
     padding: 20px 15px;
   }
+  
+  .teams-row {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+  
+  .team {
+    order: 1;
+  }
+  
+  .team.team1 {
+    order: 1;
+  }
+  
+  .vs-divider {
+    order: 2;
+    min-width: auto;
+    padding: 10px 0;
+    align-self: center;
+  }
+  
+  .team.team2 {
+    order: 3;
+  }
 }
 
 @media (max-width: 480px) {
@@ -302,6 +368,11 @@
   
   .team-name {
     font-size: 1rem;
+  }
+  
+  .vs-divider {
+    font-size: 1rem;
+    padding: 8px 0;
   }
   
   .score {

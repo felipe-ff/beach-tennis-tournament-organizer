@@ -1,0 +1,310 @@
+.tabela-jogos {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+  min-height: 100vh;
+}
+
+.header-section {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 15px rgba(74, 85, 104, 0.3);
+}
+
+.back-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(74, 85, 104, 0.4);
+}
+
+.tabela-jogos h1 {
+  color: #2d3748;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.explanation {
+  color: #4a5568;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #e6fffa 0%, #f0fff4 100%);
+  padding: 20px;
+  border-radius: 15px;
+  border-left: 4px solid #38b2ac;
+}
+
+.mixed-doubles-info {
+  background: rgba(56, 178, 172, 0.1);
+  border: 1px solid rgba(56, 178, 172, 0.2);
+  border-radius: 12px;
+  padding: 15px;
+  margin: 20px auto;
+  max-width: 800px;
+}
+
+.info-note {
+  margin: 0;
+  color: #2d3748;
+  font-size: 1rem;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.tournament-section {
+  margin-bottom: 50px;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tournament-section h2 {
+  color: #2d3748;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-align: center;
+  background: linear-gradient(45deg, #4a5568, #2d3748);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.game-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  border: 1px solid rgba(74, 85, 104, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.game-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+}
+
+.game-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  border-color: rgba(74, 85, 104, 0.3);
+}
+
+.game-number {
+  font-weight: 700;
+  color: #2d3748;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.game-teams {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.team {
+  background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: center;
+  flex: 1;
+  box-shadow: 0 2px 8px rgba(74, 85, 104, 0.3);
+}
+
+.vs {
+  font-weight: 700;
+  color: #4a5568;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e0 100%);
+  padding: 6px 12px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.footer-section {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.transparency-note {
+  background: linear-gradient(135deg, #e6fffa 0%, #f0fff4 100%);
+  padding: 30px;
+  border-radius: 20px;
+  border: 2px solid #38b2ac;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.transparency-note::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #38b2ac 0%, #319795 100%);
+}
+
+.transparency-note h3 {
+  color: #2d3748;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.transparency-note p {
+  color: #4a5568;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .tabela-jogos {
+    padding: 15px;
+  }
+  
+  .header-section {
+    padding: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .back-button {
+    position: static;
+    margin-bottom: 20px;
+    width: auto;
+  }
+  
+  .tabela-jogos h1 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
+  
+  .explanation {
+    font-size: 1rem;
+    padding: 15px;
+  }
+  
+  .tournament-section {
+    padding: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .tournament-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .games-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .game-card {
+    padding: 15px;
+  }
+  
+  .game-teams {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .team {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+  
+  .vs {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
+  
+  .transparency-note {
+    padding: 20px;
+  }
+  
+  .transparency-note h3 {
+    font-size: 1.3rem;
+  }
+  
+  .transparency-note p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tabela-jogos h1 {
+    font-size: 1.8rem;
+  }
+  
+  .header-section {
+    padding: 15px;
+  }
+  
+  .tournament-section {
+    padding: 15px;
+  }
+  
+  .game-card {
+    padding: 12px;
+  }
+  
+  .team {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+}

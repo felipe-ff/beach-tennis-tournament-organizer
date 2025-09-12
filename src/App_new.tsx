@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Routes, Route, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import PlayerSetup from './components/PlayerSetup';
 import GamesList from './components/GamesList';
@@ -7,7 +7,6 @@ import PlayerStats from './components/PlayerStats';
 import TabelaJogos from './components/TabelaJogos';
 import { getTournamentStructure } from './data/tournamentData';
 import { assignPlayersToNumbers, assignPlayersToNumbersLinear, createTournamentState, updateGameScore, assignPlayersToNumbersMixed, createMixedTournamentStructure } from './utils/tournamentUtils';
-import { checkAdminStatus } from './utils/adminUtils';
 import { 
   saveTournament, 
   loadTournament, 
@@ -24,65 +23,30 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [currentTournamentId, setCurrentTournamentIdState] = useState<string | null>(null);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
-  const justCreatedTournament = useRef<string | null>(null);
 
-  // Check admin status on component mount and periodically
-  useEffect(() => {
-    const checkAdmin = () => {
-      setIsAdmin(checkAdminStatus());
-    };
-    
-    checkAdmin();
-    
-    // Check every 60 seconds if admin status has expired
-    const intervalId = setInterval(checkAdmin, 60000);
-    
-    return () => clearInterval(intervalId);
-  }, []);
-
-  // Load tournament on app start or when URL changes
+  // Load tournament on app start
   useEffect(() => {
     const loadExistingTournament = async () => {
       try {
-        // Get tournament ID from URL parameters
-        const tournamentId = searchParams.get('tournament');
+        const tournamentId = getCurrentTournamentId();
         
         if (tournamentId) {
           setCurrentTournamentIdState(tournamentId);
-          
-          // If we just created this tournament, skip the Firestore load
-          if (justCreatedTournament.current === tournamentId) {
-            console.log('Tournament just created, skipping Firestore load');
-            justCreatedTournament.current = null; // Reset the flag
-            setLoading(false); // Make sure to set loading to false
-            return;
-          }
           
           // Try to load from Firestore first
           try {
             const data = await loadTournament(tournamentId);
             if (data) {
               setTournamentData(data);
+              navigate('/jogos');
               console.log('Tournament loaded from Firestore');
             } else {
-              console.log('Tournament not found, redirecting to home');
-              // If tournament doesn't exist, redirect to home and clear URL params
-              setSearchParams({});
-              navigate('/');
+              console.log('Tournament not found');
             }
           } catch (error) {
             console.error('Error loading tournament:', error);
-            // On error, redirect to home and clear URL params
-            setSearchParams({});
-            navigate('/');
           }
-        } else {
-          // No tournament ID in URL, clear any existing tournament data
-          setTournamentData(null);
-          setCurrentTournamentIdState(null);
         }
       } catch (error) {
         console.error('Error loading tournament:', error);
@@ -92,7 +56,7 @@ function App() {
     };
 
     loadExistingTournament();
-  }, [searchParams, navigate, setSearchParams]);
+  }, [navigate]);
 
   // Auto-save tournament data when it changes
   useEffect(() => {
@@ -154,14 +118,12 @@ function App() {
       }
       
       // Set current tournament
+      setCurrentTournamentId(tournamentId);
       setCurrentTournamentIdState(tournamentId);
       setTournamentData(newTournamentData);
       
-      // Mark that we just created this tournament to avoid reload
-      justCreatedTournament.current = tournamentId;
-      
-      // Navigate to games with tournament ID in URL
-      navigate(`/jogos?tournament=${tournamentId}`);
+      // Navigate to games
+      navigate('/jogos');
     } catch (error) {
       console.error('Error creating tournament:', error);
     } finally {
@@ -186,59 +148,10 @@ function App() {
     // Clear current tournament data
     setTournamentData(null);
     setCurrentTournamentIdState(null);
+    setCurrentTournamentId('');
     
-    // Navigate to setup and clear URL parameters
+    // Navigate to setup
     navigate('/');
-  };
-
-  const handleUpdatePlayerNames = async (newNames: string[]) => {
-    if (!tournamentData || !currentTournamentId) return;
-
-    // Create new playerAssignment with updated names
-    const updatedPlayerAssignment: Record<number, string> = {};
-    
-    newNames.forEach((name, index) => {
-      const playerNumber = index + 1;
-      const defaultName = `Jogador ${playerNumber}`;
-      
-      // Use provided name or fall back to default
-      updatedPlayerAssignment[playerNumber] = name || defaultName;
-    });
-
-    // Update games with new player names
-    const updatedGames = tournamentData.games.map(game => ({
-      ...game,
-      team1: game.team1.map(player => ({
-        ...player,
-        name: updatedPlayerAssignment[player.number] || player.name
-      })),
-      team2: game.team2.map(player => ({
-        ...player,
-        name: updatedPlayerAssignment[player.number] || player.name
-      }))
-    }));
-
-    const updatedTournamentData = {
-      ...tournamentData,
-      playerAssignment: updatedPlayerAssignment,
-      games: updatedGames, // Include updated games with new names
-      updatedAt: new Date()
-    };
-
-    // Save to state immediately
-    setTournamentData(updatedTournamentData);
-
-    // Save to Firestore
-    try {
-      setSaving(true);
-      await updateTournament(currentTournamentId, updatedTournamentData);
-      console.log('Player names updated and saved to Firestore');
-    } catch (error) {
-      console.error('Error saving player names:', error);
-      // Could show an error message to user here
-    } finally {
-      setSaving(false);
-    }
   };
 
   if (loading) {
@@ -253,12 +166,7 @@ function App() {
   }
 
   return (
-    <Layout 
-      tournamentData={tournamentData} 
-      onNewTournament={handleNewTournament} 
-      saving={saving}
-      onUpdatePlayerNames={handleUpdatePlayerNames}
-    >
+    <Layout tournamentData={tournamentData} onNewTournament={handleNewTournament}>
       <Routes>
         <Route 
           path="/" 
@@ -271,7 +179,6 @@ function App() {
               <GamesList
                 games={tournamentData.games}
                 onScoreUpdate={handleScoreUpdate}
-                isAdmin={isAdmin}
               />
             ) : (
               <PlayerSetup onTournamentCreate={handleTournamentCreate} />

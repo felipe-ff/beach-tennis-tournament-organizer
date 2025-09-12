@@ -1,11 +1,14 @@
 import { 
-  collection, 
   doc, 
   setDoc, 
   getDoc, 
-  updateDoc, 
   deleteDoc,
-  onSnapshot 
+  onSnapshot,
+  collection,
+  query,
+  where,
+  getDocs,
+  orderBy
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
@@ -193,45 +196,51 @@ export const generateTournamentId = () => {
   return `tournament_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 };
 
-// Save tournament to localStorage as backup
-export const saveToLocalStorage = (tournamentId, data) => {
+// Get tournaments by date from Firestore
+export const getTournamentsByDate = async (date) => {
   try {
-    localStorage.setItem(`tournament_${tournamentId}`, JSON.stringify(data));
+    const startOfDay = new Date(date);
+    startOfDay.setHours(0, 0, 0, 0);
+    
+    const endOfDay = new Date(date);
+    endOfDay.setHours(23, 59, 59, 999);
+    
+    const tournamentsRef = collection(db, TOURNAMENTS_COLLECTION);
+    const q = query(
+      tournamentsRef,
+      where('createdAt', '>=', startOfDay),
+      where('createdAt', '<=', endOfDay),
+      orderBy('createdAt', 'desc')
+    );
+    
+    const querySnapshot = await getDocs(q);
+    const tournaments = [];
+    
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      tournaments.push({
+        id: doc.id,
+        name: data.tournamentName,
+        createdAt: data.createdAt,
+        password: data.password
+      });
+    });
+    
+    return tournaments;
   } catch (error) {
-    console.error('Error saving to localStorage:', error);
+    console.error('Error getting tournaments by date:', error);
+    return [];
   }
 };
 
-// Load tournament from localStorage as backup
-export const loadFromLocalStorage = (tournamentId) => {
-  try {
-    const data = localStorage.getItem(`tournament_${tournamentId}`);
-    return data ? JSON.parse(data) : null;
-  } catch (error) {
-    console.error('Error loading from localStorage:', error);
-    return null;
-  }
-};
-
-// Get current tournament ID from URL or localStorage
+// Get current tournament ID from URL parameters only
 export const getCurrentTournamentId = () => {
-  // Try to get from URL parameters first
   const urlParams = new URLSearchParams(window.location.search);
-  const urlTournamentId = urlParams.get('tournament');
-  
-  if (urlTournamentId) {
-    return urlTournamentId;
-  }
-  
-  // Fall back to localStorage
-  return localStorage.getItem('currentTournamentId');
+  return urlParams.get('tournament');
 };
 
-// Set current tournament ID
+// Set current tournament ID (URL only)
 export const setCurrentTournamentId = (tournamentId) => {
-  localStorage.setItem('currentTournamentId', tournamentId);
-  
-  // Update URL without reload
   const url = new URL(window.location);
   url.searchParams.set('tournament', tournamentId);
   window.history.replaceState({}, '', url);

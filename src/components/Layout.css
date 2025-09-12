@@ -1,0 +1,153 @@
+.app-layout {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+}
+
+.app-navigation {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(74, 85, 104, 0.1);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.tournament-title {
+  color: #2d3748;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.saving-indicator {
+  font-size: 0.9rem;
+  color: #4a5568;
+  background: #f7fafc;
+  padding: 5px 12px;
+  border-radius: 15px;
+  border: 1px solid #e2e8f0;
+  font-weight: 500;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.7; }
+  50% { opacity: 1; }
+  100% { opacity: 0.7; }
+}
+
+.nav-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-button:not(.active) {
+  background: #f7fafc;
+  color: #4a5568;
+  border: 1px solid #e2e8f0;
+}
+
+.nav-button:not(.active):hover {
+  background: #edf2f7;
+  border-color: #cbd5e0;
+}
+
+.nav-button.active {
+  background: #4a5568;
+  color: white;
+  border: 1px solid #4a5568;
+}
+
+.nav-button.new-tournament {
+  margin-left: 10px;
+}
+
+.nav-button.admin-toggle {
+  font-size: 1.2rem;
+  padding: 8px 12px;
+  margin-left: 25px;
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.nav-button.admin-toggle:hover {
+  background: #edf2f7;
+  border-color: #cbd5e0;
+  transform: scale(1.05);
+}
+
+.app-content {
+  padding: 0;
+  min-height: calc(100vh - 80px);
+}
+
+@media (max-width: 768px) {
+  .nav-content {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+  }
+  
+  .tournament-title {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+  
+  .nav-buttons {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .nav-button {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+  
+  .nav-button.new-tournament {
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-content {
+    padding: 10px;
+  }
+  
+  .tournament-title {
+    font-size: 1.1rem;
+  }
+  
+  .nav-button {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+}

@@ -37,6 +37,29 @@ const PlayerStats: React.FC<PlayerStatsProps> = ({ games, playerAssignment }) =>
     }
   });
 
+  // Function to get player number from player name
+  const getPlayerNumber = (playerName: string): number | null => {
+    for (const [numberStr, name] of Object.entries(playerAssignment)) {
+      if (name === playerName) {
+        return parseInt(numberStr);
+      }
+    }
+    return null;
+  };
+
+  // Function to format player name with number
+  const formatPlayerName = (playerName: string): string => {
+    const playerNumber = getPlayerNumber(playerName);
+    if (!playerNumber) return playerName;
+    
+    // Check if it's a default name (Jogador X, Homem X, Mulher X)
+    const defaultNames = [`Jogador ${playerNumber}`, `Homem ${playerNumber}`, `Mulher ${playerNumber}`];
+    const isDefaultName = defaultNames.includes(playerName);
+    
+    // Only show number if it's NOT a default name
+    return isDefaultName ? playerName : `${playerName} (${playerNumber})`;
+  };
+
   const handleSort = (field: keyof PlayerStatsType) => {
     if (sortBy === field) {
       setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
@@ -138,7 +161,7 @@ const PlayerStats: React.FC<PlayerStatsProps> = ({ games, playerAssignment }) =>
                     </span>
                   )}
                 </td>
-                <td className="player-name">{player.name}</td>
+                <td className="player-name">{formatPlayerName(player.name)}</td>
                 <td className="numeric">{player.gamesPlayed}</td>
                 <td className="numeric points-scored">{player.pointsScored}</td>
                 <td className="numeric wins">{player.gamesWon}</td>
